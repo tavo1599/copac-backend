@@ -497,6 +497,38 @@ export interface ApiAliadoAliado extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiFuncionarioFuncionario extends Struct.CollectionTypeSchema {
+  collectionName: 'funcionarios';
+  info: {
+    displayName: 'Funcionario';
+    pluralName: 'funcionarios';
+    singularName: 'funcionario';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    cargo: Schema.Attribute.String & Schema.Attribute.Required;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    foto: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'> &
+      Schema.Attribute.Required;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::funcionario.funcionario'
+    > &
+      Schema.Attribute.Private;
+    nombre: Schema.Attribute.String & Schema.Attribute.Required;
+    orden: Schema.Attribute.Integer;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiNoticiaNoticia extends Struct.CollectionTypeSchema {
   collectionName: 'noticias';
   info: {
@@ -1135,6 +1167,7 @@ declare module '@strapi/strapi' {
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
       'api::aliado.aliado': ApiAliadoAliado;
+      'api::funcionario.funcionario': ApiFuncionarioFuncionario;
       'api::noticia.noticia': ApiNoticiaNoticia;
       'api::pregunta-frecuente.pregunta-frecuente': ApiPreguntaFrecuentePreguntaFrecuente;
       'api::servicio.servicio': ApiServicioServicio;
